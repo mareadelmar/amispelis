@@ -1,0 +1,18 @@
+.header-title {
+    font-family: "Vast Shadow", cursive;
+    font-size: 40px;
+}
+
+.header-logo {
+    width: 60px;
+}
+
+@media (min-width: 900px) {
+    .header-title {
+        font-size: 60px;
+    }
+
+    .header-logo {
+        width: 80px;
+    }
+}

@@ -1,0 +1,17 @@
+.home-container {
+    flex-direction: column;
+}
+
+.home-splash {
+    width: 100%;
+}
+
+@media (min-width: 900px) {
+    .home-container {
+        flex-direction: row;
+    }
+
+    .home-splash {
+        width: 50%;
+    }
+}
