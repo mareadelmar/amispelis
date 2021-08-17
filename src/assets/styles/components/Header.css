@@ -1,6 +1,26 @@
+.header-login a,
+.header-login button {
+    margin: 0.75em 0.75em 0 0;
+    padding: 0.75em;
+    border-radius: 4px;
+}
+
+.header-login a {
+    background-color: var(--color-secondary);
+}
+
+.header-login a:hover {
+    background-color: var(--color-darksecondary);
+}
+
+.header-login button:hover {
+    color: lightslategrey;
+}
+
 .header-title {
     font-family: "Vast Shadow", cursive;
     font-size: 40px;
+    cursor: pointer;
 }
 
 .header-logo {

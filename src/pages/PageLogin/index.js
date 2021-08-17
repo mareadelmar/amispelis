@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import "../../assets/styles/pages/PageLogin.css";
-import { Input } from "@chakra-ui/react";
+import { Input, Alert, AlertIcon } from "@chakra-ui/react";
 import { useUserData } from "../../hooks/useUserData";
 import UserContext from "../../context/UserDataContext";
 
 const PageLogin = () => {
-    const { getLogin, isLogged } = useUserData(UserContext);
+    const { getLogin, isLogged, serviceError } = useUserData(UserContext);
     const [pass, setPass] = useState("");
     const [mail, setMail] = useState("");
-    const [path, pushLocation] = useLocation();
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [, pushLocation] = useLocation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (pass === "" || mail === "") {
+            console.log("escribime los campos, reina");
+            setErrorMessage("Llename los campos, mireina");
+            setTimeout(() => {
+                setErrorMessage(null);
+            }, 3000);
+            return;
+        }
         getLogin({ mail, pass });
     };
 
@@ -45,7 +54,18 @@ const PageLogin = () => {
                         onChange={(e) => setPass(e.target.value)}
                     />
                 </div>
-
+                {errorMessage && (
+                    <Alert status="error">
+                        <AlertIcon />
+                        {errorMessage}
+                    </Alert>
+                )}
+                {serviceError && (
+                    <Alert status="error">
+                        <AlertIcon />
+                        {serviceError}
+                    </Alert>
+                )}
                 <button type="submit" className="w-100 mtop-small btn btn-form">
                     Login
                 </button>

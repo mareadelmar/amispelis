@@ -1,14 +1,14 @@
 .home-container {
-    flex-direction: column;
+    *flex-direction: column;
 }
 
 .home-splash {
-    width: 100%;
+    width: 98%;
 }
 
 @media (min-width: 900px) {
     .home-container {
-        flex-direction: row;
+        *flex-direction: row;
     }
 
     .home-splash {

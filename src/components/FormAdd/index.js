@@ -1,84 +1,90 @@
 import React, { useState, useContext } from "react";
 import "../../assets/styles/components/FormAdd.css";
-import { Input, Select, Textarea } from "@chakra-ui/react";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 import { getMovieData } from "../../services/getMovieData";
+import { db } from "../../config/firebaseConfig";
+import { useUserData } from "../../hooks/useUserData";
 import AllMoviesContext from "../../context/AllMoviesContext";
 import { useLocation } from "wouter";
+import SelectGenre from "../SelectGenre";
+import TextareaComments from "../TextareaComments";
+import InputMovie from "../InputMovie";
 
 const FormAdd = () => {
     const { allMovies, setAllMovies } = useContext(AllMoviesContext);
+    const { userData } = useUserData();
     const [imdbUrl, setImdbUrl] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [movieGenre, setMovieGenre] = useState("");
     const [comments, setComments] = useState("");
     const [, pushLocation] = useLocation();
 
     const handleChangeUrl = (e) => {
-        console.log(e.target.value);
         setImdbUrl(e.target.value);
     };
 
     const handleChangeSelect = (e) => {
-        console.log(e.target.value);
         setMovieGenre(e.target.value);
+    };
+
+    const handleChangeTextarea = (e) => {
+        setComments(e.target.value);
     };
 
     const handleSumitAdd = (e) => {
         e.preventDefault();
 
         if (imdbUrl === "" || movieGenre === "") {
-            console.log("escribime los campos, reina");
+            setErrorMessage("escribime los campos, reina");
+            setTimeout(() => {
+                setErrorMessage("");
+            }, 3000);
             return;
         }
 
         getMovieData({ imdbUrl }).then((data) => {
+            data.date = new Date().toISOString();
             if (comments !== "") {
                 data.comments = comments;
             }
             data.icon = movieGenre;
-            console.log(data);
-            setAllMovies([...allMovies, data]);
-            pushLocation("/");
+
+            const dbRef = db.collection("movie-list");
+            dbRef
+                .doc(userData.uid)
+                .collection("userMovieList")
+                .add(data)
+                .then((doc) => {
+                    console.log("subido", doc);
+                    setAllMovies([...allMovies, data]);
+                    pushLocation("/");
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setErrorMessage(
+                        "Hubo un problema para cargar la peli a la lista"
+                    );
+                    setTimeout(() => {
+                        setErrorMessage("");
+                    }, 3000);
+                });
         });
         //const aver = movieId !== "" ? getMovieData({ movieId }) : null;
     };
 
     return (
-        <section className="flex direction-column align-center">
+        <section className="section flex direction-column align-center">
             <form className="form-add mtop-large" onSubmit={handleSumitAdd}>
-                <label htmlFor="input-url">URL de IMDb:</label>
-                <Input
-                    className="mtop-small"
-                    id="input-url"
-                    placeholder="URL..."
-                    onChange={handleChangeUrl}
-                />
+                <InputMovie handleChangeUrl={handleChangeUrl} />
+                <SelectGenre handleChangeSelect={handleChangeSelect} />
+                <TextareaComments handleChangeTextarea={handleChangeTextarea} />
 
-                <Select
-                    className="mtop-small"
-                    placeholder="Select option"
-                    onChange={handleChangeSelect}
-                >
-                    <option value="drama">Drama</option>
-                    <option value="comedia">Comedia</option>
-                    <option value="suspenso">Suspenso/Thriller</option>
-                    <option value="terror">Terror</option>
-                    <option value="documental">Documental</option>
-                    <option value="cienciaFiccion">Ciencia Ficción</option>
-                    <option value="ganasDeVivir">Ganas de vivir</option>
-                    <option value="cambalache">Cambalache</option>
-                    <option value="serie">Serie</option>
-                </Select>
-
-                <div className="mtop-small">
-                    <label htmlFor="input-comments">Comentarios:</label>
-                    <Textarea
-                        className="mtop-small"
-                        id="input-comments"
-                        placeholder="Here is a sample placeholder"
-                        onChange={(e) => setComments(e.target.value)}
-                    />
-                </div>
-
+                {errorMessage !== "" && (
+                    <Alert status="error">
+                        <AlertIcon />
+                        {errorMessage}
+                    </Alert>
+                )}
                 <button type="submit" className="btn btn-form mtop-small">
                     Listorti
                 </button>

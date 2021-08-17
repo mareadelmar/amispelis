@@ -1,20 +1,26 @@
 /*
-COLORES:
-- acento: #16afb4;
-- secundario: #78acfa
-- acento-oscuro: #cc3579
-- negro: #3a3a3d
-- blanco: #f2f2f2;
-
-*/
-
-:root {
+PALETA ANTERIOR:
     --color-accent: #51dbd4;
     --color-secondary: #d5b3f0;
     --color-white: #f2f2f2;
     --color-black: #3a3a3d;
     --color-darkaccent: #3ea8a3;
     --color-lightaccent: #b9e8e5;
+
+COLORES otros
+paleta: https://www.pinterest.es/pin/80994493273365965/
+
+*/
+
+:root {
+    --color-accent: #f23793;
+    --color-secondary: #937fb1;
+    --color-white: #f2f2f2;
+    --color-black: #3a3a3d;
+    --color-darkaccent: #9e2361;
+    --color-lightaccent: #b9e8e5;
+    --color-background: #3e364a;
+    --color-darksecondary: #805fb3;
 }
 
 body {
@@ -24,7 +30,15 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #333 !important;
+    *color: #333 !important;
+    color: var(--color-white) !important;
+    background-color: var(--color-background) !important;
+}
+
+.app {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* FLEX */
@@ -39,6 +53,10 @@ body {
 
 .justify-center {
     justify-content: center;
+}
+
+.justify-end {
+    justify-content: flex-end;
 }
 
 .direction-column {
@@ -59,12 +77,25 @@ body {
     margin-top: 24px;
 }
 
+.py-small {
+    padding: 0.5em 0;
+}
+
 .w-100 {
-    width: 100%;
+    width: 100% !important;
 }
 
 .section {
     min-height: 90vh;
+    width: 95vw;
+}
+
+.section-name {
+    padding-left: 1em;
+}
+
+.font-trisapace {
+    font-family: "Trispace", sans-serif;
 }
 
 /* BUTTON */
@@ -81,4 +112,10 @@ body {
 
 .btn:hover {
     background-color: var(--color-darkaccent);
+}
+
+@media (min-width: 900px) {
+    .section {
+        width: 80%;
+    }
 }

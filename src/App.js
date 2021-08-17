@@ -10,14 +10,16 @@ import { AllMoviesContextProvider } from "./context/AllMoviesContext";
 function App() {
     return (
         <>
-            <UserContextProvider>
-                <AllMoviesContextProvider>
-                    <Header />
-                    <Route path="/" component={PageHome} />
-                    <Route path="/add" component={FormAdd} />
-                </AllMoviesContextProvider>
-                <Route path="/login" component={PageLogin} />
-            </UserContextProvider>
+            <div className="app">
+                <UserContextProvider>
+                    <AllMoviesContextProvider>
+                        <Header />
+                        <Route path="/" component={PageHome} />
+                        <Route path="/add" component={FormAdd} />
+                    </AllMoviesContextProvider>
+                    <Route path="/login" component={PageLogin} />
+                </UserContextProvider>
+            </div>
         </>
     );
 }
