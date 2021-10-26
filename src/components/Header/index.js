@@ -1,8 +1,8 @@
 import React from "react";
 import "../../assets/styles/components/Header.css";
-import logo from "../../assets/statics/logo.svg";
 import { useUserData } from "../../hooks/useUserData";
 import { Link, useRoute } from "wouter";
+import { Icon } from "@iconify/react";
 
 const Header = () => {
     const { isLogged, getLogout } = useUserData();
@@ -22,10 +22,11 @@ const Header = () => {
                 {navPageLogin}
             </div>
             <div className="flex align-center justify-center">
-                <img className="header-logo" src={logo} alt="logo sparkles" />
+                <Icon icon="openmoji:sparkles" width="56" height="56" />
                 <Link to="/">
                     <h1 className="header-title">amispelis</h1>
                 </Link>
+                <Icon icon="openmoji:sparkles" width="56" height="56" />
             </div>
         </header>
     );

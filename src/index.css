@@ -114,6 +114,10 @@ body {
     background-color: var(--color-darkaccent);
 }
 
+.chakra-alert {
+    color: var(--chakra-colors-gray-800) !important;
+}
+
 @media (min-width: 900px) {
     .section {
         width: 80%;

@@ -1,6 +1,7 @@
 import React from "react";
 import "../../assets/styles/components/Card.css";
 import MovieIcon from "../MovieIcon";
+import { Link } from "wouter";
 
 const Card = ({ movieData }) => {
     console.log(movieData);
@@ -19,9 +20,9 @@ const Card = ({ movieData }) => {
         icon,
     } = movieData;
 
-    if (movieData.icon || movieData.comments) console.log(movieData);
+    //const comments = movieData.comments ? movieData.comments : null;
     return (
-        <div className="card flex">
+        <Link to={`/details/${imdbID}`} className="card flex">
             <div className="card-img">
                 <img src={Poster} alt={Title} />
             </div>
@@ -48,8 +49,14 @@ const Card = ({ movieData }) => {
                     <strong>Duración: </strong>
                     {Runtime}
                 </p>
+                {movieData.comments ? (
+                    <p>
+                        <strong>Comentarios: </strong>
+                        {movieData.comments}
+                    </p>
+                ) : null}
             </div>
-        </div>
+        </Link>
     );
 };
 
