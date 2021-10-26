@@ -3,6 +3,7 @@ import "../../assets/styles/pages/PageHome.css";
 import { useLocation } from "wouter";
 import { useUserData } from "../../hooks/useUserData";
 import ListOfMovies from "../../components/ListOfMovies";
+import Loader from "../../components/Loader";
 
 const PageHome = () => {
     //const { allMovies } = useContext(AllMoviesContext);
@@ -18,7 +19,7 @@ const PageHome = () => {
     };
 
     const userId = userData ? userData.uid : null;
-    if (loading) return <p>cargando...</p>;
+    if (loading) return <Loader />;
     return (
         <>
             <div className="section home-container flex direction-column align-center mtop-large">
@@ -49,7 +50,7 @@ const PageHome = () => {
             {!isLogged ? null : (
                 <div className="mtop-large">
                     <h2 className="section-name font-trisapace">
-                        Películas agregadas:
+                        PELÍCULAS AGREGADAS
                     </h2>
                     <ListOfMovies user={userId} />
                 </div>
