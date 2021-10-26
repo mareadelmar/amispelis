@@ -21,7 +21,7 @@ export const useUserData = () => {
                 }
                 if (data.code) {
                     console.log(data.code, data.message);
-                    setServiceError(data.code);
+                    setServiceError(data.message);
                     //setUserData(null);
                     setLoading(false);
                 }

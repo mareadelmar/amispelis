@@ -91,7 +91,8 @@ body {
 }
 
 .section-name {
-    padding-left: 1em;
+    text-align: center;
+    font-size: 20px;
 }
 
 .font-trisapace {

@@ -18,13 +18,19 @@ const movieIcon = ({ icon }) => {
         return <Icon icon="openmoji:nerd-face" width="40" height="40" />;
     }
     if (icon === "cienciaFiccion") {
-        return <Icon icon="openmoji:robot" width="40" height="40" />;
+        return <Icon icon="openmoji:mechanical-arm" width="40" height="40" />;
     }
     if (icon === "ganasDeVivir") {
         return <Icon icon="openmoji:heart-on-fire" width="40" height="40" />;
     }
     if (icon === "cambalache") {
-        return <Icon icon="openmoji:piata" width="40" height="40" />;
+        return (
+            <Icon
+                icon="openmoji:mermaid-light-skin-tone"
+                width="40"
+                height="40"
+            />
+        );
     }
     if (icon === "serie") {
         return <Icon icon="openmoji:puzzle-piece" width="40" height="40" />;
