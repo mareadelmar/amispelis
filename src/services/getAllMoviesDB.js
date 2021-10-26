@@ -7,6 +7,7 @@ export function getAllMoviesDB({ user }) {
         .doc(user)
         .collection("userMovieList");
     return dbRef
+        .orderBy("date", "desc")
         .get()
         .then((doc) => {
             if (doc) {

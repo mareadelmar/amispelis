@@ -3,10 +3,10 @@ import { useLocation } from "wouter";
 import "../../assets/styles/pages/PageLogin.css";
 import { Input, Alert, AlertIcon } from "@chakra-ui/react";
 import { useUserData } from "../../hooks/useUserData";
-import UserContext from "../../context/UserDataContext";
+import Loader from "../../components/Loader";
 
 const PageLogin = () => {
-    const { getLogin, isLogged, serviceError } = useUserData(UserContext);
+    const { getLogin, isLogged, serviceError, loading } = useUserData();
     const [pass, setPass] = useState("");
     const [mail, setMail] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
@@ -30,9 +30,11 @@ const PageLogin = () => {
         if (isLogged) pushLocation("/");
     }, [isLogged, pushLocation]);
 
+    if (loading) return <Loader />;
     return (
         <section className="flex direction-column justify-center align-center w-100 section">
             <form onSubmit={handleSubmit} className="form-login">
+                <h2 className="section-name font-trisapace">LOGIN</h2>
                 <div className="mtop-small">
                     <label htmlFor="email" className="w-100">
                         Email:
